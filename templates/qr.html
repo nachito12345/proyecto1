@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Generado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffe066 0%, #43e97b 100%);
+            min-height: 100vh;
+        }
+        h2 {
+            color: #ff69b4;
+            text-shadow: 2px 2px 8px #fff;
+        }
+        .card {
+            border: 2px solid #43e97b;
+            box-shadow: 0 0 20px #43e97b44;
+        }
+        .btn-primary {
+            background-color: #ff69b4;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #43e97b;
+            color: #fff;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .container {
+                margin-top: 2rem !important;
+                padding: 0 1rem;
+            }
+            .card {
+                box-shadow: 0 0 10px #ffe06644;
+            }
+        }
+        @media (max-width: 576px) {
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .card {
+                margin: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div id="confetti"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center">
+                <h2>Tu QR ha sido generado</h2>
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5 style="font-weight: bold; font-family: Arial, sans-serif;">Información del Usuario:</h5> <br>
+                        <p style="font-weight: bold; font-family: Arial, sans-serif;"><strong>Nombre:</strong> {{ nombre }} {{ apellido }}</p>
+                        <p style="font-weight: bold; font-family: Arial, sans-serif;" class="mb-0"><strong>DNI:</strong> {{ dni }}</p>
+                        <img src="data:image/png;base64,{{ qr_image }}" class="img-fluid" alt="QR Code">
+                        <p style="color: red; font-weight: bold; font-family: Arial, sans-serif;" class="mt-3 text-muted">Este QR es de un solo uso y será validado en el evento.</p>
+                    </div>
+                </div>
+                <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Generar otro QR</a>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Confetti simple para el encabezado
+    function createConfetti() {
+        const confetti = document.getElementById('confetti');
+        if (!confetti) return;
+        for (let i = 0; i < 40; i++) {
+            let div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.top = Math.random() * 280 + 'px';
+            div.style.left = Math.random() * 98 + 'vw';
+            div.style.width = '12px';
+            div.style.height = '12px';
+            div.style.borderRadius = '50%';
+            div.style.opacity = '0.7';
+            div.style.zIndex = '1000';
+            div.style.background = [
+                '#ff69b4', '#ffe066', '#43e97b', '#38f9d7', '#00bfff', '#ffb6c1'
+            ][Math.floor(Math.random()*6)];
+            div.style.animation = `fall 2.5s linear ${Math.random()}s infinite`;
+            confetti.appendChild(div);
+        }
+    }
+    document.addEventListener('DOMContentLoaded', createConfetti);
+    </script>
+    <style>
+    @keyframes fall {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(60vh); }
+    }
+    #confetti div {
+        pointer-events: none;
+    }
+    #confetti {
+        position: absolute;
+        width: 100vw;
+        height: 100px;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+    }
+    </style>
+</html>

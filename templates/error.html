@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error de Validación</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffb6c1 0%, #ffe066 100%);
+            min-height: 100vh;
+        }
+        .card.bg-danger {
+            border: 2px solid #ff69b4;
+            box-shadow: 0 0 20px #ff69b444;
+        }
+        h1.display-4 {
+            color: #ffe066;
+            text-shadow: 2px 2px 8px #fff;
+        }
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .container {
+                margin-top: 2rem !important;
+                padding: 0 1rem;
+            }
+            .card {
+                box-shadow: 0 0 10px #ffe06644;
+            }
+        }
+        @media (max-width: 576px) {
+            .col-md-6 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            .card {
+                margin: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div id="confetti"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card bg-danger text-white">
+                    <div class="card-body text-center">
+                        <h1 class="display-4">✗</h1>
+                        <h2>Error de Validación</h2>
+                        <p class="lead mt-4">{{ mensaje }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    // Confetti simple para el encabezado
+    function createConfetti() {
+        const confetti = document.getElementById('confetti');
+        if (!confetti) return;
+        for (let i = 0; i < 40; i++) {
+            let div = document.createElement('div');
+            div.style.position = 'absolute';
+            div.style.top = Math.random() * 280 + 'px';
+            div.style.left = Math.random() * 98 + 'vw';
+            div.style.width = '12px';
+            div.style.height = '12px';
+            div.style.borderRadius = '50%';
+            div.style.opacity = '0.7';
+            div.style.zIndex = '1000';
+            div.style.background = [
+                '#ff69b4', '#ffe066', '#43e97b', '#38f9d7', '#00bfff', '#ffb6c1'
+            ][Math.floor(Math.random()*6)];
+            div.style.animation = `fall 2.5s linear ${Math.random()}s infinite`;
+            confetti.appendChild(div);
+        }
+    }
+    document.addEventListener('DOMContentLoaded', createConfetti);
+    </script>
+    <style>
+    @keyframes fall {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(60vh); }
+    }
+    #confetti div {
+        pointer-events: none;
+    }
+    #confetti {
+        position: absolute;
+        width: 100vw;
+        height: 100px;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+    }
+    </style>
+</html>
